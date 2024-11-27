@@ -1,0 +1,1 @@
+export {default as MuiProvider} from './mui-provider'
