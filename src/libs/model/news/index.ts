@@ -1,0 +1,1 @@
+export {pokemonApi} from './api/news.api'
