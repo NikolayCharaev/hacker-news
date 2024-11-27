@@ -1,4 +1,18 @@
 import { createTheme } from '@mui/material/styles';
+declare module '@mui/material/styles' {
+  interface Palette {
+    custom: {
+      darkGrey: string;
+      lightGrey: string;
+    };
+  }
+  interface PaletteOptions {
+    custom?: {
+      darkGrey?: string;
+      lightGrey?: string;
+    };
+  }
+}
 
 const theme = createTheme({
   palette: {
@@ -8,9 +22,16 @@ const theme = createTheme({
     secondary: {
       main: '#dc004e',
     },
+    custom: {
+      darkGrey: '#333333',
+      lightGrey: '#f0f0f0', // Пример другого кастомного цвета
+    },
   },
 
   typography: {
+    allVariants: {
+      color: '#fff',
+    },
     fontFamily: 'Roboto, Arial, sans-serif',
   },
   breakpoints: {
