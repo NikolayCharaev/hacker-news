@@ -42,7 +42,12 @@ export const hackerNewsApi = createApi({
               commentsCount: story.descendants || 0,
             }));
 
-            formattedStories.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+            // Преобразуем дату в формат Date и сортируем от самой новой к самой старой
+            formattedStories.sort((a, b) => {
+              const dateA = new Date(a.date.split(',')[0].split('.').reverse().join('-') + " " + a.date.split(',')[1]);
+              const dateB = new Date(b.date.split(',')[0].split('.').reverse().join('-') + " " + b.date.split(',')[1]);
+              return dateB.getTime() - dateA.getTime();
+            });
 
             return { data: formattedStories };
           } else {

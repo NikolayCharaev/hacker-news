@@ -11,6 +11,7 @@ declare module '@mui/material/styles' {
     custom?: {
       darkGrey?: string;
       lightGrey?: string;
+      white?: string;
     };
   }
 }
@@ -26,14 +27,12 @@ const theme = createTheme(
       },
       custom: {
         darkGrey: '#333333',
+        white: '#ffffff',
         lightGrey: '#f0f0f0', // Пример другого кастомного цвета
       },
     },
 
     typography: {
-      allVariants: {
-        color: '#fff',
-      },
       fontFamily: 'Roboto, Arial, sans-serif',
     },
     breakpoints: {

@@ -5,6 +5,7 @@ import { NewsTable } from '../news/ui';
 import { useGetFormattedTopStoriesQuery } from '../../shared/model/news/api/news.api';
 import { toast } from 'react-toastify';
 import { columns } from '../news/constants';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 
 const Home = () => {
   const notify = () => toast('Список обновлен');
@@ -35,14 +36,14 @@ const Home = () => {
         {!isLoading && (
           <Stack spacing={4}>
             <Stack flexDirection={'row'} alignItems={'center'} justifyContent={'space-between'}>
-              <Typography variant="h6">Список новостей</Typography>
+              <Typography variant="h6" >Список новостей</Typography>
               <Button
                 sx={{ backgroundColor: (theme) => theme.palette.secondary.main, color: '#FFF' }}
                 onClick={handleRefetch}>
                 {isRefetching ? (
                   <CircularProgress color="inherit" size={'26px'} />
                 ) : (
-                  'Обновить список'
+                  <AutorenewIcon/>
                 )}
               </Button>
             </Stack>

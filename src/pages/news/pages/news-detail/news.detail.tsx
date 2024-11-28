@@ -9,7 +9,7 @@ const NewsDetail = () => {
   const { id } = useParams<Record<string, string | undefined>>(); // Получаем id из URL
 
   // Типизируем результат useLazyGetStoryDetailsQuery
-  const [fetchStoryDetails, { isLoading }] = useLazyGetStoryDetailsQuery();
+  const [fetchStoryDetails, { isLoading, data }] = useLazyGetStoryDetailsQuery();
 
   useEffect(() => {
     if (id) {
@@ -17,6 +17,8 @@ const NewsDetail = () => {
     }
   }, [id, fetchStoryDetails]);
 
+
+  console.log(data)
   return (
     <Container maxWidth="xl">
       {isLoading && <Preloader />}
