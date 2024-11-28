@@ -1,7 +1,7 @@
 // src/app/routes/AppRouter.tsx
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { NotFound, Home } from '../../../pages';
+import { NotFound, Home, NewsDetail } from '../../../pages';
 import Header from '../../../shared/ui/header/header';
 const AppRouter: React.FC = () => {
   return (
@@ -9,7 +9,8 @@ const AppRouter: React.FC = () => {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="*" element={<NotFound />} /> Страница 404
+        <Route path="news/:id" element={<NewsDetail />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

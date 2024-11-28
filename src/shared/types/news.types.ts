@@ -14,4 +14,5 @@ export interface Story {
     author: string;
     date: string; // Читабельная дата
     commentsCount: number;
+    id: number
   }

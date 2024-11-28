@@ -29,6 +29,7 @@ export const useLatestStories = () => {
         const formattedStories: FormattedStory[] = fetchedStories.map((story) => ({
           title: story.title,
           rating: story.score,
+          id: story.id,
           author: story.by,
           date: new Date(story.time * 1000).toLocaleString(),
           commentsCount: story.descendants || 0,

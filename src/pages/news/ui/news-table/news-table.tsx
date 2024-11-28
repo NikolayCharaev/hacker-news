@@ -1,8 +1,8 @@
 import { Paper, Table, TableContainer } from '@mui/material';
 import React, { useState } from 'react';
-import CustomTableHead from '../../../../shared/ui/table/table-head/table-head';
-import CustomTableBody from '../../../../shared/ui/table/table-body/table-body';
-import CustomTablePagination from '../../../../shared/ui/table/table-pagination/table-pagination';
+import CustomTableHead from '../table/table-head/table-head';
+import CustomTableBody from '../table/table-body/table-body';
+import CustomTablePagination from '../table/table-pagination/table-pagination';
 
 const NewsTable = ({ news, columns }) => {
   const [page, setPage] = useState(0); // Текущая страница
@@ -22,15 +22,10 @@ const NewsTable = ({ news, columns }) => {
       <TableContainer sx={{ maxHeight: 640 }}>
         <Table stickyHeader aria-label="sticky table">
           <CustomTableHead rows={columns} />
-          <CustomTableBody 
-            rows={news} 
-            page={page} 
-            rowsPerPage={rowsPerPage} 
-          />
+          <CustomTableBody rows={news} page={page} rowsPerPage={rowsPerPage} />
         </Table>
       </TableContainer>
       <CustomTablePagination
-      
         rows={news}
         page={page}
         rowsPerPage={rowsPerPage}
