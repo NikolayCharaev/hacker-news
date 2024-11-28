@@ -1,17 +1,19 @@
 import { createTheme } from '@mui/material/styles';
 import { ruRU } from '@mui/material/locale'; // Импорт русской локали
+
 declare module '@mui/material/styles' {
   interface Palette {
     custom: {
       darkGrey: string;
       lightGrey: string;
+      white: string;
     };
   }
   interface PaletteOptions {
     custom?: {
       darkGrey?: string;
       lightGrey?: string;
-      white?: string;
+      white?: string; // Уже присутствует здесь
     };
   }
 }
@@ -27,8 +29,8 @@ const theme = createTheme(
       },
       custom: {
         darkGrey: '#333333',
-        white: '#ffffff',
-        lightGrey: '#f0f0f0', // Пример другого кастомного цвета
+        white: '#ffffff', // Пример белого цвета
+        lightGrey: '#f0f0f0',
       },
     },
 

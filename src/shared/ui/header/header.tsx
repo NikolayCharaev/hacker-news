@@ -1,15 +1,13 @@
-import { Box, Container, Stack, Typography } from '@mui/material';
+import { Box, Container, Stack, Typography, useTheme } from '@mui/material';
 import logo from './assets/icons/logo.svg';
 import { useNavigate } from 'react-router-dom';
-import { useTheme } from '@emotion/react';
 const Header = () => {
   const navigate = useNavigate();
   const handleNavigate = () => {
     navigate('/');
   };
-  const theme = useTheme()
 
-  console.log(theme)
+  const theme  = useTheme()
   return (
     <Container maxWidth="xl">
       <Stack
@@ -28,7 +26,7 @@ const Header = () => {
         <Box sx={{ cursor: 'pointer' }} onClick={handleNavigate}>
           <Typography
             variant="h5"
-            color={'white'}
+            color={theme.palette.custom.white}
             sx={{
               fontSize: {
                 xs: '14px',

@@ -6,7 +6,7 @@ import { useGetFormattedTopStoriesQuery } from '../../shared/model/news/api/news
 import { toast } from 'react-toastify';
 import { columns } from '../news/constants';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
-
+import { CatLoading } from './ui/preloader';
 const Home = () => {
   const notify = () => toast('Список обновлен');
   const {
@@ -33,7 +33,7 @@ const Home = () => {
     <Container maxWidth="xl">
       {isLoading && <Preloader />}
       <Box marginTop={13}>
-        {!isLoading && (
+        {!isLoading ? (
           <Stack spacing={4}>
             <Stack flexDirection={'row'} alignItems={'center'} justifyContent={'space-between'}>
               <Typography variant="h6" >Список новостей</Typography>
@@ -49,7 +49,7 @@ const Home = () => {
             </Stack>
             <NewsTable columns={columns} news={stories || []} />
           </Stack>
-        )}
+        ) : <CatLoading/>}
       </Box>
     </Container>
   );
