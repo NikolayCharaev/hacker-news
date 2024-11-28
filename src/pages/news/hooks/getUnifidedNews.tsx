@@ -1,51 +1,54 @@
-import { useEffect, useState } from 'react';
-import {
-  useGetTopStoriesQuery,
-  useLazyGetStoryDetailsQuery,
-} from '../../../libs/model/news/api/news.api';
+import { TablePagination } from '@mui/material';
 
-import { Story, FormattedStory } from '../../../shared/types';
+interface CustomTablePaginationProps {
+  rows: any[]; // Массив строк, тип можно уточнить в зависимости от структуры данных
+  page: number; // Текущая страница
+  rowsPerPage: number; // Количество строк на странице
+  handleChangePage: (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => void; // Функция для смены страницы
+  handleChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void; // Функция для смены количества строк на странице
+}
 
-export const useLatestStories = () => {
-  const { data: topStoryIds, isLoading: loadingTopStories } = useGetTopStoriesQuery(undefined, {
-    selectFromResult: ({ data, isLoading }) => ({ data, isLoading }),
-  });
-
-  const [fetchStoryDetails] = useLazyGetStoryDetailsQuery();
-  const [stories, setStories] = useState<FormattedStory[]>([]);
-  const [loading, setLoading] = useState<boolean>(true); // Состояние общего индикатора загрузки
-
-  useEffect(() => {
-    const fetchDetails = async () => {
-      if (!topStoryIds) return;
-
-      setLoading(true); // Устанавливаем состояние загрузки
-
-      const top100Ids = topStoryIds.slice(0, 100); // Берем первые 100 ID
-      try {
-        const storyPromises = top100Ids.map((id) => fetchStoryDetails(id).unwrap());
-        const fetchedStories = await Promise.all(storyPromises);
-
-        const formattedStories: FormattedStory[] = fetchedStories.map((story) => ({
-          title: story.title,
-          rating: story.score,
-          id: story.id,
-          author: story.by,
-          date: new Date(story.time * 1000).toLocaleString(),
-          commentsCount: story.descendants || 0,
-        }));
-
-        formattedStories.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-        setStories(formattedStories);
-      } catch (error) {
-        console.error('Error fetching story details:', error);
-      } finally {
-        setLoading(false); // Снимаем состояние загрузки после завершения
-      }
-    };
-
-    fetchDetails();
-  }, [topStoryIds, fetchStoryDetails]);
-
-  return { stories, loading };
+const CustomTablePagination = ({
+  rows,
+  page,
+  rowsPerPage,
+  handleChangePage,
+  handleChangeRowsPerPage,
+}: CustomTablePaginationProps) => {
+  return (
+    <TablePagination
+      sx={{
+        color: 'black',
+        '& .MuiTablePagination-selectLabel, & .MuiTablePagination-displayedRows': {
+          color: 'black',
+        },
+        '& .MuiTablePagination-actions': {
+          color: 'black',
+        },
+        '& .MuiSelect-root': {
+          color: 'black', // Цвет текста в select
+        },
+        '& .MuiMenuItem-root': {
+          color: 'black', // Цвет текста в элементах меню
+          '&.Mui-selected': {
+            backgroundColor: 'rgba(0, 0, 0, 0.08)', // Цвет фона для выбранного элемента
+            color: 'black', // Цвет текста для выбранного элемента
+          },
+          '&:hover': {
+            backgroundColor: 'rgba(0, 0, 0, 0.16)', // Цвет фона при наведении
+            color: 'black', // Цвет текста при наведении
+          },
+        },
+      }}
+      rowsPerPageOptions={[10, 25, 50]}
+      component="div"
+      count={rows.length} // Общее количество строк
+      rowsPerPage={rowsPerPage} // Количество строк на странице
+      page={page} // Текущая страница
+      onPageChange={handleChangePage} // Изменение страницы
+      onRowsPerPageChange={handleChangeRowsPerPage} // Изменение количества строк на странице
+    />
+  );
 };
+
+export default CustomTablePagination;

@@ -1,11 +1,11 @@
-import React from 'react';
 import { TableHead, TableCell, TableRow } from '@mui/material';
+import { ColumnsType } from '../../../constants';
 
-const CustomTableHead = ({ rows }) => {
+const CustomTableHead = ({ rows } : any) => {
   return (
     <TableHead >
       <TableRow>
-        {rows.map((column, index) => (
+        {rows?.map((column: ColumnsType , index : number) => (
           <TableCell sx={{fontWeight: 'bold'}} key={index} >
             {column.name}
           </TableCell>

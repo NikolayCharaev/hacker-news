@@ -2,8 +2,25 @@ import { TableBody, TableCell, TableRow } from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const CustomTableBody = ({ rows, page, rowsPerPage }) => {
+// Тип для строки данных
+interface Row {
+  id: number;
+  title: string;
+  rating?: number;
+  author: string;
+  date: string;
+  commentsCount?: number;
+}
+
+interface CustomTableBodyProps {
+  rows: Row[]; // Массив строк данных
+  page: number; // Номер текущей страницы
+  rowsPerPage: number; // Количество строк на странице
+}
+
+const CustomTableBody: React.FC<CustomTableBodyProps> = ({ rows, page, rowsPerPage }) => {
   const navigate = useNavigate();
+
   return (
     <TableBody>
       {rows

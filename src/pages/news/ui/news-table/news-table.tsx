@@ -1,20 +1,50 @@
 import { Paper, Table, TableContainer } from '@mui/material';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import CustomTableHead from '../table/table-head/table-head';
 import CustomTableBody from '../table/table-body/table-body';
 import CustomTablePagination from '../table/table-pagination/table-pagination';
 
-const NewsTable = ({ news, columns }) => {
+// Типизация для новости (можно адаптировать в зависимости от структуры данных)
+interface NewsItem {
+  id: number;
+  title: string;
+  author: string;
+  date: string;
+  // добавьте другие свойства, соответствующие данным о новости
+}
+
+// Типизация для столбцов
+interface Column {
+  id?: string;
+  label?: string;
+  minWidth?: number;
+  align?: 'center' | 'right' | 'left';
+  name?: string;
+}
+
+interface NewsTableProps {
+  news: NewsItem[];
+  columns: Column[];
+}
+
+const NewsTable: React.FC<NewsTableProps> = ({ news, columns }) => {
   const [page, setPage] = useState(0); // Текущая страница
   const [rowsPerPage, setRowsPerPage] = useState(10); // Количество строк на странице
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
+  // Обработка изменения страницы
+  const handleChangePage = (
+    //@ts-expect-error поправить надо
+    event: React.MouseEvent<HTMLButtonElement>, newPage: number) => {
+    setPage(newPage); // Устанавливаем новую страницу
   };
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0); // Сброс страницы при изменении количества строк
+  // Обработка изменения количества строк на странице
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newRowsPerPage = parseInt(event.target.value, 10); // Получаем новое количество строк
+    if (!isNaN(newRowsPerPage)) {
+      setRowsPerPage(newRowsPerPage);
+      setPage(0); // Сброс страницы при изменении количества строк
+    }
   };
 
   return (

@@ -1,6 +1,14 @@
 import { TablePagination } from '@mui/material';
 
-const CustomTablePagination = ({
+interface CustomTablePaginationProps {
+  rows: any[]; // Типизируем rows как массив (можно уточнить тип, если известен)
+  page: number; // Номер текущей страницы
+  rowsPerPage: number; // Количество строк на странице
+  handleChangePage: (event: React.MouseEvent<HTMLButtonElement>, newPage: number) => void; // Функция для изменения страницы
+  handleChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void; // Функция для изменения количества строк на странице
+}
+
+const CustomTablePagination: React.FC<CustomTablePaginationProps> = ({
   rows,
   page,
   rowsPerPage,
@@ -37,6 +45,7 @@ const CustomTablePagination = ({
       count={rows.length} // Общее количество строк
       rowsPerPage={rowsPerPage} // Количество строк на странице
       page={page} // Текущая страница
+      //@ts-ignore
       onPageChange={handleChangePage} // Изменение страницы
       onRowsPerPageChange={handleChangeRowsPerPage} // Изменение количества строк на странице
     />

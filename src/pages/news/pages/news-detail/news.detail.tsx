@@ -1,20 +1,21 @@
-import  { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useLazyGetStoryDetailsQuery } from '../../../../libs/model/news/api/news.api';
+import { useLazyGetStoryDetailsQuery } from '../../../../shared/model/news/api/news.api';
 import { Container } from '@mui/material';
 import { Preloader } from '../../../../shared/ui/preloader';
 
+// Используем Record<string, string | undefined> для индексации параметров
 const NewsDetail = () => {
-  const { id } = useParams<{ id: string }>(); // Получаем id из URL
+  const { id } = useParams<Record<string, string | undefined>>(); // Получаем id из URL
 
-  const [fetchStoryDetails, { data, isLoading, error }] = useLazyGetStoryDetailsQuery();
+  // Типизируем результат useLazyGetStoryDetailsQuery
+  const [fetchStoryDetails, { isLoading }] = useLazyGetStoryDetailsQuery();
 
   useEffect(() => {
     if (id) {
-      fetchStoryDetails(id); // Запрашиваем детали новости, если id существует
+      fetchStoryDetails(+id); // Запрашиваем детали новости, если id существует
     }
   }, [id, fetchStoryDetails]);
-
 
   return (
     <Container maxWidth="xl">

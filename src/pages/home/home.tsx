@@ -1,26 +1,51 @@
-import { Container, Box, Stack, Typography } from '@mui/material';
+import { Container, Box, Stack, Typography, Button, CircularProgress } from '@mui/material';
+import { useState } from 'react';
 import { Preloader } from '../../shared/ui/preloader';
 import { NewsTable } from '../news/ui';
-import { useGetFormattedTopStoriesQuery } from '../../libs/model/news/api/news.api';
+import { useGetFormattedTopStoriesQuery } from '../../shared/model/news/api/news.api';
+import { toast } from 'react-toastify';
+import { columns } from '../news/constants';
 
 const Home = () => {
-  const { data: stories, isLoading: loading } = useGetFormattedTopStoriesQuery();
+  const notify = () => toast('Список обновлен');
+  const {
+    data: stories,
+    isLoading,
+    refetch,
+  } = useGetFormattedTopStoriesQuery(undefined, {
+    pollingInterval: 60000, // Обновление контента каждую минуту
+    refetchOnFocus: true, // Обновление при возвращении в фокус
+    refetchOnReconnect: true, // Обновление при переподключении
+  });
 
-  const columns = [
-    { name: 'Название' },
-    { name: 'Рейтинг' },
-    { name: 'Автор' },
-    { name: 'Дата публикации' },
-    { name: 'Кол-во комментариев' },
-  ];
+  const [isRefetching, setIsRefetching] = useState(false);
+
+  const handleRefetch = async () => {
+    setIsRefetching(true);
+
+    await refetch(); // Ждем завершения refetch
+    notify();
+    setIsRefetching(false);
+  };
 
   return (
     <Container maxWidth="xl">
-      {loading && <Preloader />}
+      {isLoading && <Preloader />}
       <Box marginTop={13}>
-        {!loading && (
+        {!isLoading && (
           <Stack spacing={4}>
-            <Typography variant="h6">Список новостей</Typography>
+            <Stack flexDirection={'row'} alignItems={'center'} justifyContent={'space-between'}>
+              <Typography variant="h6">Список новостей</Typography>
+              <Button
+                sx={{ backgroundColor: (theme) => theme.palette.secondary.main, color: '#FFF' }}
+                onClick={handleRefetch}>
+                {isRefetching ? (
+                  <CircularProgress color="inherit" size={'26px'} />
+                ) : (
+                  'Обновить список'
+                )}
+              </Button>
+            </Stack>
             <NewsTable columns={columns} news={stories || []} />
           </Stack>
         )}
