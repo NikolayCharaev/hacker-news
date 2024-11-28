@@ -1,4 +1,5 @@
-import { Container, Box, Stack, Typography, Button, CircularProgress } from '@mui/material';
+import { Box, Stack, Typography, Button, CircularProgress, useTheme } from '@mui/material';
+import { Container } from '../../shared/ui/container';
 import { useState } from 'react';
 import { Preloader } from '../../shared/ui/preloader';
 import { NewsTable } from '../news/ui';
@@ -7,7 +8,10 @@ import { toast } from 'react-toastify';
 import { columns } from '../news/constants';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { CatLoading } from './ui/preloader';
+
+
 const Home = () => {
+  const theme = useTheme()
   const notify = () => toast('Список обновлен');
   const {
     data: stories,
@@ -30,13 +34,13 @@ const Home = () => {
   };
 
   return (
-    <Container maxWidth="xl">
+    <Container>
       {isLoading && <Preloader />}
       <Box marginTop={13}>
         {!isLoading ? (
           <Stack spacing={4}>
             <Stack flexDirection={'row'} alignItems={'center'} justifyContent={'space-between'}>
-              <Typography variant="h6" >Список новостей</Typography>
+              <Typography color={theme.palette.custom.white} variant="h6" >Список новостей</Typography>
               <Button
                 sx={{ backgroundColor: (theme) => theme.palette.secondary.main, color: '#FFF' }}
                 onClick={handleRefetch}>
@@ -51,7 +55,7 @@ const Home = () => {
           </Stack>
         ) : <CatLoading/>}
       </Box>
-    </Container>
+      </Container>
   );
 };
 

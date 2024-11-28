@@ -7,6 +7,7 @@ declare module '@mui/material/styles' {
       darkGrey: string;
       lightGrey: string;
       white: string;
+      black: string
     };
   }
   interface PaletteOptions {
@@ -14,7 +15,9 @@ declare module '@mui/material/styles' {
       darkGrey?: string;
       lightGrey?: string;
       white?: string; // Уже присутствует здесь
+      black?: string;
     };
+
   }
 }
 
@@ -23,6 +26,7 @@ const theme = createTheme(
     palette: {
       primary: {
         main: '#1976d2',
+
       },
       secondary: {
         main: '#dc004e',
@@ -31,6 +35,7 @@ const theme = createTheme(
         darkGrey: '#333333',
         white: '#ffffff', // Пример белого цвета
         lightGrey: '#f0f0f0',
+        black: '#000000',
       },
     },
 

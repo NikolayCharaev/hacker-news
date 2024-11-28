@@ -5,6 +5,8 @@ export interface Story {
     score: number; // Рейтинг
     time: number; // UNIX-время
     descendants: number; // Количество комментариев
+    url?: string;
+    kids? : [number];
   }
   
   // Типизация отформатированных данных для использования в компоненте

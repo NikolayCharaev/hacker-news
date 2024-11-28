@@ -1,6 +1,7 @@
-import { Box, Container, Stack, Typography, useTheme } from '@mui/material';
+import { Box,  Stack, Typography, useTheme } from '@mui/material';
 import logo from './assets/icons/logo.svg';
 import { useNavigate } from 'react-router-dom';
+import { Container } from '../container';
 const Header = () => {
   const navigate = useNavigate();
   const handleNavigate = () => {
@@ -9,7 +10,7 @@ const Header = () => {
 
   const theme  = useTheme()
   return (
-    <Container maxWidth="xl">
+    <Container >
       <Stack
         marginTop={2}
         sx={{
