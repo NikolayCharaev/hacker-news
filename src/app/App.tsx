@@ -1,15 +1,14 @@
-import { useGetPokemonByNameQuery } from '../libs/model/news/api/news.api';
-// import { Header } from '../shared/ui/header/';
-import Header from '../shared/ui/header/header';
+import { MuiProvider, ReduxProvider } from './providers/index';
+import AppRouter from './providers/routes/app.router'; // маршрутизатор
+import './index.css';
 
 function App() {
-  const { data, error, isLoading } = useGetPokemonByNameQuery('bulbasaur');
-
-  console.log(data);
   return (
-   <>
-
-   </>
+    <MuiProvider>
+      <ReduxProvider>
+        <AppRouter />
+      </ReduxProvider>
+    </MuiProvider>
   );
 }
 

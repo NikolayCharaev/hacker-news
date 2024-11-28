@@ -1,1 +1,1 @@
-export {pokemonApi} from './api/news.api'
+export {hackerNewsApi} from './api/news.api'
