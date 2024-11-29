@@ -1,0 +1,1 @@
+export {default as CatLoading} from './home.preloader'
