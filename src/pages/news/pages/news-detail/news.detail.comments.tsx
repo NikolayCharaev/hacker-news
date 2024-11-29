@@ -122,13 +122,7 @@ function NewsDetailComments({ comments }: { comments: number[] }) {
       ) : (
         <Table aria-label="collapsible table">
           <Stack flexDirection={'row'} gap={3} sx={{position: 'absolute', top: '-10px', right: 0}}>
-            <Button
-              sx={{ backgroundColor: (theme) => theme.palette.secondary.main, color: '#FFF' }}
-              onClick={() => { 
-                navigate('/')
-              }}>
-             <HomeIcon/>
-            </Button>
+           
             <Button
               sx={{ backgroundColor: (theme) => theme.palette.secondary.main, color: '#FFF' }}
               onClick={handleRefetch}>
