@@ -7,6 +7,14 @@ export interface Story {
     descendants: number; // Количество комментариев
     url?: string;
     kids? : [number];
+    text?:string
+  }
+
+
+  export interface Comment { 
+    by: string;
+    text?: string;
+    time: number;
   }
   
   // Типизация отформатированных данных для использования в компоненте

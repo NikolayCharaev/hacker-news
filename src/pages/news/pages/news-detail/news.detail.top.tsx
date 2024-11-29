@@ -10,7 +10,7 @@ interface NewsDetailTopProps {
     by?: string;
     url?: string;
     time?: number;
-    kids?: [number];
+    descendants?:number
   };
 }
 
@@ -51,7 +51,7 @@ const NewsDetailTop = ({ data }: NewsDetailTopProps) => {
         </Stack>
 
         <Stack flexDirection={'row'} alignItems={'center'} gap={1}>
-          <Typography variant="body1">{data?.kids?.length || 0}</Typography>
+          <Typography variant="body1">{data?.descendants}</Typography>
           <PeopleIcon />
         </Stack>
       </Stack>

@@ -59,6 +59,31 @@ export const hackerNewsApi = createApi({
         }
       },
     }),
+
+    getExpandedComments: builder.query<Story[], number[]>({
+      async queryFn(commentIds, _queryApi, _extraOptions, fetchWithBQ) {
+        try {
+          if (!Array.isArray(commentIds) || commentIds.length === 0) {
+            return { data: [] }; // Возвращаем пустой массив, если комментариев нет
+          }
+    
+          // Получаем комментарии по их ID
+          const commentPromises = commentIds.map((id) =>
+            fetchWithBQ<Story>(`item/${id}.json`).then((res) => res.data)
+          );
+    
+          const fetchedComments = await Promise.all(commentPromises);
+    
+          // Фильтруем, чтобы избежать добавления неопределенных значений
+          const validComments = fetchedComments.filter(Boolean) as Story[];
+    
+          return { data: validComments };
+        } catch (error) {
+          toast.error('Произошла ошибка при загрузке комментариев');
+          return { error: { status: 500, statusText: 'Failed to fetch comments' } };
+        }
+      },
+    }),
   }),
 });
 
@@ -66,4 +91,6 @@ export const {
   useGetTopStoriesQuery,
   useLazyGetStoryDetailsQuery,
   useGetFormattedTopStoriesQuery,
+  useGetExpandedCommentsQuery,
+  useLazyGetExpandedCommentsQuery, // Добавьте ленивый хук
 } = hackerNewsApi;
