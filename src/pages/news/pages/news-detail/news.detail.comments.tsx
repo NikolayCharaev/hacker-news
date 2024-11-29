@@ -22,11 +22,6 @@ import { Preloader } from '../../../../shared/ui/preloader';
 import { Comment } from '../../../../shared/model/news/types/news.types';
 import { toast } from 'react-toastify';
 import { Button, CircularProgress } from '@mui/material';
-// interface Comment {
-//   user: string;
-//   text: string;
-//   date: string;
-// }
 
 interface RowProps {
   row: any; // Your data type
