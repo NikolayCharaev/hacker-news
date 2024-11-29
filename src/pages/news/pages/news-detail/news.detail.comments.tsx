@@ -22,8 +22,6 @@ import { Preloader } from '../../../../shared/ui/preloader';
 import { Comment } from '../../../../shared/model/news/types/news.types';
 import { toast } from 'react-toastify';
 import { Button, CircularProgress, Stack } from '@mui/material';
-import HomeIcon from '@mui/icons-material/Home';
-import { useNavigate } from 'react-router-dom';
 
 interface RowProps {
   row: any; // Your data type
@@ -105,7 +103,6 @@ function Row({ row }: RowProps) {
 function NewsDetailComments({ comments }: { comments: number[] }) {
   const { data, isLoading, refetch } = useGetExpandedCommentsQuery(comments);
   const notify = () => toast('Список комментариев обновлен');
-  const navigate = useNavigate()
   const [isRefetching, setIsRefetching] = React.useState(false);
 
   const handleRefetch = async () => {
