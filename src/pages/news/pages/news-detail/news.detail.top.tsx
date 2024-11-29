@@ -1,8 +1,9 @@
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import PeopleIcon from '@mui/icons-material/People';
 import { Button, Stack, Typography, useTheme } from '@mui/material';
-
+import HomeIcon from '@mui/icons-material/Home';
 import { formatDate } from '../../../../libs/helpers';
+import { useNavigate } from 'react-router-dom';
 
 interface NewsDetailTopProps {
   data?: {
@@ -16,6 +17,7 @@ interface NewsDetailTopProps {
 
 const NewsDetailTop = ({ data }: NewsDetailTopProps) => {
   const theme = useTheme();
+  const navigate = useNavigate();
   return (
     <>
       <Stack
@@ -36,16 +38,26 @@ const NewsDetailTop = ({ data }: NewsDetailTopProps) => {
           fontWeight={'bold'}>
           {data?.title}
         </Typography>
-        <Button
-          title="перейти к новости"
-          sx={{
-            backgroundColor: theme.palette.secondary.main,
-            color: theme.palette.custom.white,
-          }}
-          target="_blank"
-          href={data?.url || '/'}>
-          <OpenInNewIcon />
-        </Button>
+        <Stack flexDirection={'row'} alignItems={'center'} gap={2}>
+          <Button
+            title="перейти к новости"
+            sx={{
+              backgroundColor: theme.palette.secondary.main,
+              color: theme.palette.custom.white,
+            }}
+            target="_blank"
+            href={data?.url || '/'}>
+            <OpenInNewIcon />
+          </Button>
+
+          <Button
+            sx={{ backgroundColor: (theme) => theme.palette.secondary.main, color: '#FFF' }}
+            onClick={() => {
+              navigate('/');
+            }}>
+            <HomeIcon />
+          </Button>
+        </Stack>
       </Stack>
 
       <Stack

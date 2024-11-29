@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hacker-news
+    ports:
+      - "3005:3000" # Соответствует EXPOSE в Dockerfile
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - .:/app
+      - /app/node_modules
+    stdin_open: true
+    tty: true
