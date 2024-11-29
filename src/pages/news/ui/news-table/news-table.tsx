@@ -31,14 +31,12 @@ const NewsTable: React.FC<NewsTableProps> = ({ news, columns }) => {
   const [page, setPage] = useState(0); // Текущая страница
   const [rowsPerPage, setRowsPerPage] = useState(10); // Количество строк на странице
 
-  // Обработка изменения страницы
   const handleChangePage = (
     //@ts-expect-error поправить надо
     event: React.MouseEvent<HTMLButtonElement>, newPage: number) => {
     setPage(newPage); // Устанавливаем новую страницу
   };
 
-  // Обработка изменения количества строк на странице
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newRowsPerPage = parseInt(event.target.value, 10); // Получаем новое количество строк
     if (!isNaN(newRowsPerPage)) {

@@ -20,8 +20,6 @@ const NewsDetail = () => {
     }
   }, [id, fetchStoryDetails]);
 
-  console.log(data);
-
   return (
     <Container>
       {isLoading ? (
@@ -37,12 +35,13 @@ const NewsDetail = () => {
           }}
           marginTop={10}>
           <NewsDetailTop data={data} />
+
           {Array.isArray(data?.kids) && data.kids.length > 0 ? (
-            <Box>
+            <Box sx={{position: 'relative'}}>
               <Typography marginBottom={2} variant="body1">
-                Список комментариев
+                {isLoading ? 'Загрузка комментариев' : 'Список комментариев'}
               </Typography>
-              <NewsDetailComments comments={data.kids} />
+              {isLoading ? <Preloader /> : <NewsDetailComments comments={data.kids} />}
             </Box>
           ) : (
             <Typography variant="h6" textAlign={'center'}>

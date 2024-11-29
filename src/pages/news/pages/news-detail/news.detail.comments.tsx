@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { formatDate } from '../../../../libs/helpers';
 import {
   useGetExpandedCommentsQuery,
@@ -19,12 +20,13 @@ import {
 } from '../../../../shared/model/news/api/news.api';
 import { Preloader } from '../../../../shared/ui/preloader';
 import { Comment } from '../../../../shared/model/news/types/news.types';
+import { toast } from 'react-toastify';
+import { Button, CircularProgress } from '@mui/material';
 // interface Comment {
 //   user: string;
 //   text: string;
 //   date: string;
 // }
-
 
 interface RowProps {
   row: any; // Your data type
@@ -53,7 +55,7 @@ function Row({ row }: RowProps) {
         ) : (
           <TableCell />
         )}
-        <TableCell>{row.by}</TableCell>
+        <TableCell  sx={{fontWeight: 'bold'}}>{row.by}</TableCell>
         <TableCell>
           {row.deleted ? (
             'Комментарий удален'
@@ -61,7 +63,7 @@ function Row({ row }: RowProps) {
             <div dangerouslySetInnerHTML={{ __html: row.text }} />
           )}
         </TableCell>
-        <TableCell>{formatDate(row.time)}</TableCell>
+        <TableCell  sx={{fontWeight: 'bold'}}>{formatDate(row.time)}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -76,19 +78,19 @@ function Row({ row }: RowProps) {
                 <Table size="small" aria-label="comments">
                   <TableHead>
                     <TableRow>
-                      <TableCell>Пользователь</TableCell>
-                      <TableCell align="right">Комментарий</TableCell>
-                      <TableCell align="right">Дата публикации</TableCell>
+                      <TableCell  sx={{fontWeight: 'bold'}}>Пользователь</TableCell>
+                      <TableCell  sx={{fontWeight: 'bold'}} align="right">Комментарий</TableCell>
+                      <TableCell  sx={{fontWeight: 'bold'}} align="right">Дата публикации</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     {data?.map((comment: Comment, index: number) => (
                       <TableRow key={index}>
-                        <TableCell>{comment.by}</TableCell>
+                        <TableCell  sx={{fontWeight: 'bold'}}>{comment.by}</TableCell>
                         <TableCell align="right">
                           {<div dangerouslySetInnerHTML={{ __html: comment.text || '' }} />}
                         </TableCell>
-                        <TableCell align="right">{formatDate(comment.time)}</TableCell>
+                        <TableCell  sx={{fontWeight: 'bold'}} align="right">{formatDate(comment.time)}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -103,25 +105,51 @@ function Row({ row }: RowProps) {
 }
 
 function NewsDetailComments({ comments }: { comments: number[] }) {
-  const { data } = useGetExpandedCommentsQuery(comments);
+  const { data, isLoading, refetch } = useGetExpandedCommentsQuery(comments);
+  const notify = () => toast('Список комментариев обновлен');
 
+  const [isRefetching, setIsRefetching] = React.useState(false);
+
+  const handleRefetch = async () => {
+    setIsRefetching(true);
+
+    await refetch(); // Ждем завершения refetch
+    notify();
+    setIsRefetching(false);
+  };
   return (
     <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow>
-            <TableCell />
-            <TableCell>Пользователь</TableCell>
-            <TableCell align="right">Комментарий</TableCell>
-            <TableCell align="right">Дата публикации</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data?.map((element, index) => (
-            <Row key={index} row={element} />
-          ))}
-        </TableBody>
-      </Table>
+      {isLoading ? (
+        <Preloader />
+      ) : (
+        <Table aria-label="collapsible table">
+          <Box sx={{position: 'absolute', top: '-10px', right: 0}}>
+            <Button
+              sx={{ backgroundColor: (theme) => theme.palette.secondary.main, color: '#FFF' }}
+              onClick={handleRefetch}>
+              {isRefetching ? (
+                <CircularProgress color="inherit" size={'26px'} />
+              ) : (
+                <AutorenewIcon />
+              )}
+            </Button>
+          </Box>
+
+          <TableHead>
+            <TableRow>
+              <TableCell />
+              <TableCell  sx={{fontWeight: 'bold'}}>Пользователь</TableCell>
+              <TableCell  sx={{fontWeight: 'bold'}} align="right">Комментарий</TableCell>
+              <TableCell  sx={{fontWeight: 'bold'}} align="right">Дата публикации</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {data?.map((element, index) => (
+              <Row key={index} row={element} />
+            ))}
+          </TableBody>
+        </Table>
+      )}
     </TableContainer>
   );
 }
