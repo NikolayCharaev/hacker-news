@@ -10,7 +10,7 @@ interface NewsDetailTopProps {
     by?: string;
     url?: string;
     time?: number;
-    descendants?:number
+    descendants?: number;
   };
 }
 
@@ -23,7 +23,17 @@ const NewsDetailTop = ({ data }: NewsDetailTopProps) => {
         flexDirection={'row'}
         alignItems={'center'}
         justifyContent={'space-between'}>
-        <Typography fontSize={'20px'} fontWeight={'bold'}>
+        <Typography
+          sx={{
+            fontSize: {
+              xs: '14px',
+              sm: '16px',
+              md: '17px',
+              lg: '18px',
+              xl: '20px',
+            },
+          }}
+          fontWeight={'bold'}>
           {data?.title}
         </Typography>
         <Button

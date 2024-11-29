@@ -1,6 +1,7 @@
-import { TableBody, TableCell, TableRow } from '@mui/material';
+import { TableBody, TableCell, TableRow, Typography } from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { countColor } from '../../../../../libs/helpers';
 
 // Тип для строки данных
 interface Row {
@@ -35,10 +36,18 @@ const CustomTableBody: React.FC<CustomTableBodyProps> = ({ rows, page, rowsPerPa
             role="checkbox"
             key={index}>
             <TableCell>{row.title}</TableCell>
-            <TableCell>{row.rating}</TableCell>
-            <TableCell>{row.author}</TableCell>
+            <TableCell>
+              <Typography variant="body1" color={countColor(row.rating || 0)}>
+                {row.rating}
+              </Typography>
+            </TableCell>
+            <TableCell sx={{fontWeight:'bold'}}>{row.author}</TableCell>
             <TableCell>{row.date}</TableCell>
-            <TableCell>{row.commentsCount}</TableCell>
+            <TableCell>
+              <Typography variant="body1" color={countColor(row.rating || 0)}>
+                {row.commentsCount}
+              </Typography>
+            </TableCell>
           </TableRow>
         ))}
     </TableBody>

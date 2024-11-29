@@ -38,7 +38,7 @@ const NewsDetail = () => {
 
           {Array.isArray(data?.kids) && data.kids.length > 0 ? (
             <Box sx={{position: 'relative'}}>
-              <Typography marginBottom={2} variant="body1">
+              <Typography fontSize={15} marginBottom={2} variant="body1">
                 {isLoading ? 'Загрузка комментариев' : 'Список комментариев'}
               </Typography>
               {isLoading ? <Preloader /> : <NewsDetailComments comments={data.kids} />}

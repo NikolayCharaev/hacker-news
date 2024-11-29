@@ -7,7 +7,11 @@ declare module '@mui/material/styles' {
       darkGrey: string;
       lightGrey: string;
       white: string;
-      black: string
+      black: string;
+      red?: string;
+      blue: string;
+      orange: string;
+      green: string
     };
   }
   interface PaletteOptions {
@@ -16,8 +20,11 @@ declare module '@mui/material/styles' {
       lightGrey?: string;
       white?: string; // Уже присутствует здесь
       black?: string;
+      red?: string;
+      blue: string;
+      orange: string;
+      green : string
     };
-
   }
 }
 
@@ -26,7 +33,6 @@ const theme = createTheme(
     palette: {
       primary: {
         main: '#1976d2',
-
       },
       secondary: {
         main: '#dc004e',
@@ -36,6 +42,10 @@ const theme = createTheme(
         white: '#ffffff', // Пример белого цвета
         lightGrey: '#f0f0f0',
         black: '#000000',
+        red: '#ff1919',
+        blue: '#0096FF',
+        orange: '#ffbd33',
+        green : '#32b93d'
       },
     },
 
