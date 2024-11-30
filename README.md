@@ -1,50 +1,102 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Hacker News App  
 
-Currently, two official plugins are available:
+Привет! 👋  
+Добро пожаловать в проект **Hacker News App** — это React-приложение, демонстрирующее работу с API [Hacker News](https://news.ycombinator.com/).  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📸 Скриншоты  
+_(здесь будет место для скриншотов: главная страница, детальная страница новости)_  
 
-## Expanding the ESLint configuration
+## 🚀 Быстрый старт  
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Локальный запуск  
 
-- Configure the top-level `parserOptions` property like this:
+1. Склонируйте репозиторий:
+   ```bash
+   git clone https://github.com/NikolayCharaev/hacker-news.git
+   cd hacker-news
+   ```
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+2. Создайте файл `.env` в корне проекта и скопируйте содержимое из `.env.example`.  
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+3. Установите зависимости:
+   ```bash
+   npm install
+   ```
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+4. Запустите проект локально:
+   ```bash
+   npm run dev
+   ```
+Приложение будет доступно по адресу http://localhost:3000  
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+### Запуск в Docker  
+
+Если у вас установлен Docker, следуйте этим шагам:  
+
+1. Склонируйте репозиторий и создайте файл `.env`, как указано выше.  
+2. Запустите команду:  
+   ```bash
+   docker compose up --build -d
+   ```  
+
+Приложение будет доступно по адресу [http://localhost:3005](http://localhost:3005).  
+
+---
+
+## 📋 Основной функционал  
+
+### Главная страница  
+
+* Отображает **100 последних новостей**, отсортированных по дате (сначала самые свежие).  
+* **Каждая новость** содержит:  
+  - Заголовок  
+  - Рейтинг  
+  - Ник автора  
+  - Дату публикации  
+  - Счетчик комментариев  
+
+* **Переход на детальную страницу** по клику на новость.  
+* **Автоматическое обновление** списка новостей каждые 60 секунд.  
+* **Кнопка для ручного обновления** списка.  
+
+📸 _Скриншот главной страницы_  
+
+---
+
+### Детальная страница новости  
+
+* Содержит:  
+  - Ссылку на оригинальную новость  
+  - Заголовок  
+  - Дату публикации  
+  - Имя автора  
+  - Счетчик комментариев  
+  - Древовидный список комментариев  
+
+* **Корневые комментарии** загружаются сразу.  
+* **Вложенные комментарии** подгружаются по клику на корневой комментарий.  
+* **Кнопка для ручного обновления** комментариев.  
+* **Кнопка возврата** к списку новостей.  
+
+📸 _Скриншот детальной страницы_  
+
+---
+
+## 🛠️ Технические особенности  
+
+- **React** и **TypeScript**  
+- Используется **RTK Query** для работы с API и кэширования данных  
+- Роутинг: **React Router v6**  
+- Стилизация: **MUI**  
+- Приложение доступно по адресу: [http://localhost:3000](http://localhost:3000) локально и [http://localhost:3005](http://localhost:3005) в Docker.  
+- Деплой: [Демо](http://176.109.106.168:3005).  
+
+---
+
+## 🔗 Ссылки  
+
+- [Hacker News API](https://github.com/HackerNews/API)  
+- [Демо проекта](http://176.109.106.168:3005)  
+- [Репозиторий на GitHub](https://github.com/yourusername/hacker-news)  
+
