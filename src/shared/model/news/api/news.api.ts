@@ -5,7 +5,7 @@ import { Story, FormattedStory } from '../types/news.types'; // Импортир
 
 export const hackerNewsApi = createApi({
   reducerPath: 'hackerNewsApi',
-  baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_URL }),
+  baseQuery: fetchBaseQuery({ baseUrl:'https://hacker-news.firebaseio.com/v0/' }),
 
   endpoints: (builder) => ({
     getTopStories: builder.query<number[], void>({
